@@ -131,6 +131,13 @@ namespace TodoListApp
 
             _todoService.upd_task();
             RefreshTaskList();
+
+            TasksListBox.SelectedIndex = -1;
+            TitleTextBox.Text = "";
+            DescriptionTextBox.Text = "";
+            PriorityComboBox.SelectedIndex = -1;
+            StatusComboBox.SelectedIndex = -1;
+            DueDatePicker.SelectedDate = null;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
