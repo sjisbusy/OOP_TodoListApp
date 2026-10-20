@@ -9,17 +9,50 @@ namespace TodoListApp
     {
         private TodoService _todoService;
 
-        public MainWindow()
+        private static readonly Dictionary<TaskPriority, string> PriorityTranslations = new Dictionary<TaskPriority, string>
         {
+            { TaskPriority.Low, "Низкий" },
+            { TaskPriority.Medium, "Средний" },
+            { TaskPriority.High, "Высокий" }
+        };
+
+        private static readonly Dictionary<TaskStatus, string> StatusTranslations = new Dictionary<TaskStatus, string>
+        {
+            { TaskStatus.NotStarted, "Не начата" },
+            { TaskStatus.InProgress, "В процессе" },
+            { TaskStatus.Completed, "Выполнена" }
+        };
+
+        public MainWindow()
+        { 
             InitializeComponent();
 
             ITaskRepository repository = new JsonTaskRepository();
             _todoService = new TodoService(repository);
 
-            PriorityComboBox.ItemsSource = Enum.GetValues(typeof(TaskPriority));
-            StatusComboBox.ItemsSource = Enum.GetValues(typeof(TaskStatus));
+            PriorityComboBox.ItemsSource = PriorityTranslations.Values;
+            StatusComboBox.ItemsSource = StatusTranslations.Values;
 
             RefreshTaskList();
+        }
+
+        private TaskPriority GetSelectedPriority()
+        {
+            string selected = PriorityComboBox.SelectedItem as string;
+            foreach (var pair in PriorityTranslations)
+            {
+                if (pair.Value == selected) return pair.Key;
+            }
+            return TaskPriority.Medium;
+        }
+        private TaskStatus GetSelectedStatus()
+        {
+            string selected = StatusComboBox.SelectedItem as string;
+            foreach (var pair in StatusTranslations)
+            {
+                if (pair.Value == selected) return pair.Key;
+            }
+            return TaskStatus.NotStarted;
         }
 
         private void RefreshTaskList()
@@ -38,8 +71,8 @@ namespace TodoListApp
                     Description = DescriptionTextBox.Text,
                     CreatedAt = DateTime.Now,
                     DueDate = DueDatePicker.SelectedDate ?? DateTime.Now.AddDays(1),
-                    Priority = (TaskPriority)(PriorityComboBox.SelectedItem ?? TaskPriority.Medium),
-                    Status = (TaskStatus)(StatusComboBox.SelectedItem ?? TaskStatus.NotStarted)
+                    Priority = GetSelectedPriority(),
+                    Status = GetSelectedStatus()
                 };
 
                 _todoService.add_task(new_task);
@@ -69,8 +102,8 @@ namespace TodoListApp
 
             TitleTextBox.Text = selected_task.Title;
             DescriptionTextBox.Text = selected_task.Description;
-            PriorityComboBox.SelectedItem = selected_task.Priority;
-            StatusComboBox.SelectedItem = selected_task.Status;
+            PriorityComboBox.SelectedItem = PriorityTranslations[selected_task.Priority];
+            StatusComboBox.SelectedItem = StatusTranslations[selected_task.Status];
             DueDatePicker.SelectedDate = selected_task.DueDate;
         }
 
@@ -92,8 +125,8 @@ namespace TodoListApp
 
             selected_task.Title = TitleTextBox.Text;
             selected_task.Description = DescriptionTextBox.Text;
-            selected_task.Priority = (TaskPriority)(PriorityComboBox.SelectedItem ?? TaskPriority.Medium);
-            selected_task.Status = (TaskStatus)(StatusComboBox.SelectedItem ?? TaskStatus.NotStarted);
+            selected_task.Priority = GetSelectedPriority();
+            selected_task.Status = GetSelectedStatus();
             selected_task.DueDate = DueDatePicker.SelectedDate ?? DateTime.Now.AddDays(1);
 
             _todoService.upd_task();

@@ -26,5 +26,8 @@ namespace TodoListApp
         public DateTime DueDate { get; set; }
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
+
+        public string PriorityRus => Priority == TaskPriority.Low ? "Низкий" : Priority == TaskPriority.Medium ? "Средний" : "Высокий";
+        public string StatusRus => Status == TaskStatus.NotStarted ? "Не начата" : Status == TaskStatus.InProgress ? "В процессе" : "Выполнена";
     }
 }
