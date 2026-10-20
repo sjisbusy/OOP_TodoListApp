@@ -5,8 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TodoListApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Приложение Todo List" Height="500" Width="850" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
 
+        <GroupBox Header="Список задач" Grid.Column="0" Margin="0,0,10,0" BorderBrush="MediumOrchid" BorderThickness="1.5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="TasksListBox" Margin="5" SelectionChanged="TasksListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" Width="150" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text=" | Приоритет: " Foreground="MediumVioletRed"/>
+                                <TextBlock Text="{Binding Priority}" Width="60"/>
+                                <TextBlock Text=" | Статус: " Foreground="MediumVioletRed"/>
+                                <TextBlock Text="{Binding Status}" Width="80"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Content="Удалить выбранную задачу" Grid.Row="1" Margin="5" Height="30" Click="DeleteButton_Click" Background="Plum" Foreground="White" FontWeight="SemiBold"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Управление задачей" Grid.Column="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Название задачи:" Margin="0,5,0,2" FontWeight="SemiBold"/>
+                    <TextBox x:Name="TitleTextBox" Height="25" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Описание:" Margin="0,10,0,2" FontWeight="SemiBold"/>
+                    <TextBox x:Name="DescriptionTextBox" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+                    <TextBlock Text="Приоритет:" Margin="0,10,0,2" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="PriorityComboBox" Height="25" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Статус:" Margin="0,10,0,2" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="StatusComboBox" Height="25" VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Срок выполнения:" Margin="0,10,0,2" FontWeight="SemiBold"/>
+                    <DatePicker x:Name="DueDatePicker" Height="25"/>
+
+                    <Button Content="Добавить задачу" Margin="0,20,0,5" Height="35" Background="MediumOrchid" Foreground="White" FontWeight="Bold" Click="AddButton_Click"/>
+                    <Button Content="Сохранить изменения" Margin="0,5,0,0" Height="30" Click="SaveEditButton_Click" Background="Thistle" Foreground="DarkSlateGray" FontWeight="SemiBold"/>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
     </Grid>
 </Window>
