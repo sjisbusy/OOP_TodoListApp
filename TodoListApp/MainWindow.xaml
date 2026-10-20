@@ -5,58 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TodoListApp"
         mc:Ignorable="d"
-        Title="Приложение Todo List" Height="500" Width="850" WindowStartupLocation="CenterScreen">
+        Title="Приложение Todo List" Height="500" Width="850" WindowStartupLocation="CenterScreen" Background="#f7fcfb">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Список задач" Grid.Column="0" Margin="0,0,10,0" BorderBrush="MediumOrchid" BorderThickness="1.5">
+        <GroupBox Header="Список задач" Grid.Column="0" Margin="0,0,10,0" BorderBrush="#4a7c59" BorderThickness="1.2" FontWeight="SemiBold">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListBox x:Name="TasksListBox" Margin="5" SelectionChanged="TasksListBox_SelectionChanged">
+                <ListBox x:Name="TasksListBox" Margin="5" SelectionChanged="TasksListBox_SelectionChanged" BorderBrush="#d1dcda">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="2">
-                                <TextBlock Text="{Binding Title}" FontWeight="Bold" Width="150" TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Text=" | Приоритет: " Foreground="MediumVioletRed"/>
-                                <TextBlock Text="{Binding PriorityRus}" Width="60"/>
-                                <TextBlock Text=" | Статус: " Foreground="MediumVioletRed"/>
-                                <TextBlock Text="{Binding StatusRus}" Width="80"/>
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" Width="150" TextTrimming="CharacterEllipsis" Foreground="#1b3322"/>
+                                <TextBlock Text=" | Приоритет: " Foreground="#32cd32"/>
+                                <TextBlock Text="{Binding PriorityRus}" Width="60" Foreground="#2c3e50" FontWeight="Normal"/>
+                                <TextBlock Text=" | Статус: " Foreground="#32cd32"/>
+                                <TextBlock Text="{Binding StatusRus}" Width="80" Foreground="#2c3e50" FontWeight="Normal"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Button Content="Удалить выбранную задачу" Grid.Row="1" Margin="5" Height="30" Click="DeleteButton_Click" Background="Plum" Foreground="White" FontWeight="SemiBold"/>
+                <Button Content="Удалить выбранную задачу" Grid.Row="1" Margin="5" Height="30" Click="DeleteButton_Click" Background="#8fbc8f" Foreground="White" FontWeight="SemiBold"/>
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Управление задачей" Grid.Column="1">
+        <GroupBox Header="Управление задачей" Grid.Column="1" BorderBrush="#4a7c59" BorderThickness="1.2" FontWeight="SemiBold">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="5">
-                    <TextBlock Text="Название задачи:" Margin="0,5,0,2" FontWeight="SemiBold"/>
-                    <TextBox x:Name="TitleTextBox" Height="25" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Название задачи:" Margin="0,5,0,2" Foreground="#1b3322" FontWeight="SemiBold"/>
+                    <TextBox x:Name="TitleTextBox" Height="25" VerticalContentAlignment="Center" BorderBrush="#d1dcda"/>
 
-                    <TextBlock Text="Описание:" Margin="0,10,0,2" FontWeight="SemiBold"/>
-                    <TextBox x:Name="DescriptionTextBox" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock Text="Описание:" Margin="0,10,0,2" Foreground="#1b3322" FontWeight="SemiBold"/>
+                    <TextBox x:Name="DescriptionTextBox" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" BorderBrush="#d1dcda"/>
 
-                    <TextBlock Text="Приоритет:" Margin="0,10,0,2" FontWeight="SemiBold"/>
-                    <ComboBox x:Name="PriorityComboBox" Height="25" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Приоритет:" Margin="0,10,0,2" Foreground="#1b3322" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="PriorityComboBox" Height="25" VerticalContentAlignment="Center" BorderBrush="#d1dcda"/>
 
-                    <TextBlock Text="Статус:" Margin="0,10,0,2" FontWeight="SemiBold"/>
-                    <ComboBox x:Name="StatusComboBox" Height="25" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Статус:" Margin="0,10,0,2" Foreground="#1b3322" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="StatusComboBox" Height="25" VerticalContentAlignment="Center" BorderBrush="#d1dcda"/>
 
-                    <TextBlock Text="Срок выполнения:" Margin="0,10,0,2" FontWeight="SemiBold"/>
-                    <DatePicker x:Name="DueDatePicker" Height="25"/>
+                    <TextBlock Text="Срок выполнения:" Margin="0,10,0,2" Foreground="#1b3322" FontWeight="SemiBold"/>
+                    <DatePicker x:Name="DueDatePicker" Height="25" BorderBrush="#d1dcda"/>
 
-                    <Button Content="Добавить задачу" Margin="0,20,0,5" Height="35" Background="MediumOrchid" Foreground="White" FontWeight="Bold" Click="AddButton_Click"/>
-                    <Button Content="Сохранить изменения" Margin="0,5,0,0" Height="30" Click="SaveEditButton_Click" Background="Thistle" Foreground="DarkSlateGray" FontWeight="SemiBold"/>
+                    <Button Content="Добавить задачу" Margin="0,20,0,5" Height="35" Background="#2f5233" Foreground="White" FontWeight="Bold" Click="AddButton_Click"/>
+                    <Button Content="Сохранить изменения" Margin="0,5,0,0" Height="30" Click="SaveEditButton_Click" Background="#c1e1c1" Foreground="#2c3e50" BorderBrush="#4a7c59" FontWeight="SemiBold"/>
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>
